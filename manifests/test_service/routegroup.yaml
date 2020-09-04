@@ -1,0 +1,19 @@
+apiVersion: zalando.org/v1
+kind: RouteGroup
+metadata:
+  name: echo-server
+  namespace: default
+spec:
+  hosts:
+  - "echo.localhost"
+  backends:
+  - name: echo-backend
+    type: service
+    serviceName: echo-echo-server
+    servicePort: 80
+  defaultBackends:
+  - backendName: echo
+  routes:
+  - pathSubtree: /
+    backends:
+    - backendName: echo-backend
