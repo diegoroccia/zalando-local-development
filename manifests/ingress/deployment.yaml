@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
   labels:
     application: skipper-ingress
-    version: v0.11.40
+    version: v0.11.143
     component: ingress
 spec:
   strategy:
@@ -18,7 +18,7 @@ spec:
     metadata:
       labels:
         application: skipper-ingress
-        version: v0.11.40
+        version: v0.11.143
         component: ingress
     spec:
       affinity:
@@ -39,7 +39,7 @@ spec:
       hostNetwork: true
       containers:
       - name: skipper-ingress
-        image: registry.opensource.zalan.do/pathfinder/skipper:v0.11.40
+        image: registry.opensource.zalan.do/pathfinder/skipper:v0.11.143
         ports:
         - name: ingress-port
           containerPort: 9999
@@ -75,6 +75,7 @@ spec:
           - "-read-timeout-server=5m"
           - "-write-timeout-server=60s"
           - '-default-filters-prepend=enableAccessLog(4,5) -> lifo(2000,20000,"3s")'
+          - '-oauth2-tokeninfo-url="https://info.services.auth.zalando.com/oauth2/tokeninfo"'
         resources:
           limits:
             cpu: "4"
