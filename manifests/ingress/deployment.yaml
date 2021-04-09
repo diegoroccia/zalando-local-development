@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
   labels:
     application: skipper-ingress
-    version: v0.11.143
+    version: v0.11.204
     component: ingress
 spec:
   strategy:
@@ -18,28 +18,13 @@ spec:
     metadata:
       labels:
         application: skipper-ingress
-        version: v0.11.143
+        version: v0.11.204
         component: ingress
     spec:
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                - key: application
-                  operator: In
-                  values:
-                  - skipper-ingress
-              topologyKey: kubernetes.io/hostname
-      priorityClassName: system-cluster-critical
       serviceAccountName: skipper-ingress
-      nodeSelector:
-        ingress-ready: "true"
-      dnsPolicy: ClusterFirstWithHostNet
-      hostNetwork: true
       containers:
       - name: skipper-ingress
-        image: registry.opensource.zalan.do/pathfinder/skipper:v0.11.143
+        image: registry.opensource.zalan.do/pathfinder/skipper:v0.11.204
         ports:
         - name: ingress-port
           containerPort: 9999
@@ -78,10 +63,7 @@ spec:
           - '-oauth2-tokeninfo-url="https://info.services.auth.zalando.com/oauth2/tokeninfo"'
         resources:
           limits:
-            cpu: "4"
-            memory: "1Gi"
-          requests:
-            cpu: "4"
+            cpu: 500m
             memory: "1Gi"
         readinessProbe:
           httpGet:
